@@ -11,41 +11,37 @@ import React, {useEffect, useState} from 'react';
 import DefaultInput from '../components/DefaultInput';
 import {hp, wp} from '../helper/resDimension';
 import Snackbar from 'react-native-snackbar';
+import WeatherComponent from '../components/weatherComponent';
 
 const HomeScreen = () => {
   const [cityName, setCityName] = useState('');
 
-  const [weatherData, setWeatherData] = useState(null);
-  const apiKey = 'f76faff46c09ca5c2faae10d06010403';
+  // const [weatherData, setWeatherData] = useState(null);
+  // const apiKey = '';
 
-  const Search = async () => {
-    if (cityName == '') {
-      Alert.alert('Enter City name');
-    } else {
-      await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`,
-      )
-        .then(response => response.json())
-        .then(data => {
-          if (data.cod == 200) {
-            setWeatherData(data);
-          } else {
-            Alert.alert('Data Not Found');
-          }
-          // Snackbar.show({
-          //   text: 'Data Not Found',
-          //   duration: 1000,
-          // });
-
-          console.log('====================================');
-          console.log(data);
-          console.log('====================================');
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    }
-  };
+  // const Search = async () => {
+  //   if (cityName == '') {
+  //     Alert.alert('Enter City name');
+  //   } else {
+  //     await fetch(
+  //       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`,
+  //     )
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.cod == 200) {
+  //           setWeatherData(data);
+  //         } else {
+  //           Alert.alert('Data Not Found');
+  //         }
+  //         console.log('====================================');
+  //         console.log(data);
+  //         console.log('====================================');
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching data:', error);
+  //       });
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
@@ -67,7 +63,8 @@ const HomeScreen = () => {
           }}
         />
       </View>
-      <View style={{padding: wp(2)}}>
+      <WeatherComponent city={cityName} />
+      {/* <View style={{padding: wp(2)}}>
         <Button title="Search" onPress={Search} />
         {weatherData && Object.keys(weatherData).length !== 0 ? (
           <View>
@@ -79,7 +76,7 @@ const HomeScreen = () => {
         ) : (
           <Text>Loading...</Text>
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
